@@ -45,7 +45,7 @@ public class ItrWork {
 	List<Integer> oddL = new ArrayList<Integer>();
 	for( Integer x : L ) {
 	    if( L.get(x)%2 != 0 ) {
-		oddL.add(x);
+		oddL.add(L.get(x));
 	    }
 	}
 	return oddL;
@@ -58,7 +58,7 @@ public class ItrWork {
 	List<Integer> oddL = new ArrayList<Integer>();
 	for( int x = 0; x < L.size(); x++ ) {
 	    if( L.get(x)%2 != 0 ) {
-		oddL.add(x);
+		oddL.add(L.get(x));
 	    }
 	}
 	return oddL;
