@@ -1,0 +1,36 @@
+
+
+In order for the algorithm to merge and complete, it must have a set of already sorted lists.
+These arrays are obtained by splitting the original dataset into lists in half, until the lists are of length 1.
+Since they are length 1, they are sorted since they are the only number in the list.
+Then we start merging adjacent lists, doubling the size.
+The runtime for just merging the lists (combining two lists to double its size and sort them in the same process) should be log(n).
+Since we are comparing each element of the list individually, there will be n amount of merges.
+This means the complete runtime for the algorithm will be the merges * the number of elements.
+This results in O(nlog(n))
+
+Team Tilde -- Kyle Moon, Arpita Abrol, Stanley Zeng
+
+APCS2 pd10
+
+HW10 -- Justify
+
+2016-03-08
+
+
+
+MergeSort is an O(n(log(n)) notation. 
+It is a 'divide and conquor' type of sort- in order to be able to sort, efficeiently, it requires that the array be split up into smaller arrays, which are sorted.
+These arrays are obtained by splitting the original dataset into arrays half the size, until the arrays are all of length 1. 
+Since we're splitting everything in half, there will be log(n) splits. 
+
+Since they are length 1, they are sorted since they are the only number in the list. 
+
+Then we start merging adjacent lists, doubling the size. 
+
+The runtime for just merging the lists (combining two lists to double its size and sort them in the same process) should be log(n). 
+
+Since we are comparing each element of the list individually, there will be n amount of merges.
+ 
+This means the complete runtime for the algorithm will be the merges * the number of elements.
+This results in O(nlog(n)).

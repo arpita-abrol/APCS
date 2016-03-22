@@ -1,0 +1,26 @@
+//Arpita Abrol
+//APCS2 pd10
+//HW06 -- a Maiz
+//2016-03-01
+
+Maiz Algorithm
+
+1. The maze should have a variety of symbols:
+-one to represent the maze( such as "|" )
+-one to represent the end of the maze( such as "*" )
+-One to represent 'you'( such as "o" ) and the path you travel twice( such as "." )
+----cells you visit once would be represented by "o"
+----cells you visit twice would be represented by "." (this way you know you don't visit those cells you've backthroughed again but you still have the ability to backtrack through cells you've only visited once)
+
+2. Start in a random position. In order of preference, try going, when possible,: East, South, West, North
+
+3. Only go on cells that you have never visited, unless you have reached a 'dead end' (represented by no unvisited cells next-to you and not being able to solve the maze)
+
+4. If you have never visited a cell before, mark the cell with a "o". If you have, mark the cell with an "."
+
+5. When you reach a dead end, go back until there is another path available to go on. This would be the recursive part for when it fails. 
+
+6. If you are going down a path and come accross a path you have already traveled before, treat it as a dead end.
+
+7. The maze is over when you have reached the "*" or have visited every non-wall cell possible (in which case the maze is not solvable)
+

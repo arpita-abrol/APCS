@@ -1,0 +1,11 @@
+//Arpita Abrol
+//APCS2 -- pd10
+//HW08 -- Splittin n Mergin
+//2016-03-04
+
+Algorithm to unshuffle a deck of cards:
+1. Split the deck of cards into 1-4 piles, one per suit.
+2. Split each pile into 2 piles, and continue splitting each pile until each pile has only one card.
+3. Combine and sort the smallest files possible, only two piles joining at a time. Think: insertion sort, but insertion merge.
+4. Repeat for any other suit piles. 
+5. Merge suit piles. Deck is now sorted.
