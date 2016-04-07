@@ -26,27 +26,41 @@
 
 public class Deque<T> implements Queue<T> 
 {
-    private LLNode<T> _front, _end;
+    private DLLNode<T> _front, _end;
     private int _size;
 
 
     // default constructor creates an empty queue
-    public RQueue() { 
+    public Deque() { 
 	_front = _end = null;
 	_size = 0;
     }
 
 
-    public void enqueue( T enQVal ) 
+    public void enqueueEnd( T enQVal ) 
     {
 	//special case: when enqueuing to an empty list, 
 	//make _front && _end point to same node
 	if ( isEmpty() ) {
-	    _front = _end = new LLNode<T>( enQVal, null );
+	    _front = _end = new DLLNode<T>( enQVal, null, null );
 	}
 	else {
-	    _end.setNext( new LLNode<T>( enQVal, null ) );
+	    _end.setNext( new DLLNode<T>( enQVal, _end, null ) );
 	    _end = _end.getNext();
+	}
+	_size++;
+    }
+
+    public void enqueueFront( T enQVal ) 
+    {
+	//special case: when enqueuing to an empty list, 
+	//make _front && _end point to same node
+	if ( isEmpty() ) {
+	    _end = _front = new DLLNode<T>( enQVal, null, null );
+	}
+	else {
+	    _front.setPrev( new DLLNode<T>( enQVal, _end, null ) );
+	    _front = _front.getPrev();
 	}
 	_size++;
     }
@@ -54,9 +68,9 @@ public class Deque<T> implements Queue<T>
 
     // remove and return thing at front of queue, then reorder elements
     // assume _queue ! empty
-    public T dequeue() 
+    public T dequeueFront() 
     { 
-	T retVal = _front.getValue();
+	T retVal = _front.getCargo();
 	_front = _front.getNext();
 
 	if ( _front == null ) //just moved past last node
@@ -69,11 +83,31 @@ public class Deque<T> implements Queue<T>
 	return retVal;
     }
 
+    public T dequeueEnd() 
+    { 
+	T retVal = _end.getCargo();
+	_end = _end.getPrev();
+
+	if ( _end == null ) //just moved past last node
+	    _front = null;      //update _end to reflect emptiness
+
+	_size--;
+
+	if ( _size > 1 )  sample();
+
+	return retVal;
+    }
+
 
     //return next item to be dequeued
     public T peekFront() 
     {
-	return _front.getValue();
+	return _front.getCargo();
+    }
+
+    public T peekEnd() 
+    {
+	return _end.getCargo();
     }
 
 
@@ -87,7 +121,14 @@ public class Deque<T> implements Queue<T>
     {
 	int cycles = (int)( _size * Math.random() );
 	for( int i = 0; i < cycles; i++ )
-	    enqueue( dequeue() );
+	    enqueueEnd( dequeueFront() );
+    }
+
+    public void sampleReverse () 
+    {
+	int cycles = (int)( _size * Math.random() );
+	for( int i = 0; i < cycles; i++ )
+	    enqueueFront( dequeueEnd() );
     }
 
 
@@ -98,9 +139,9 @@ public class Deque<T> implements Queue<T>
     public String toString() 
     { 
 	String foo = "";
-	LLNode<T> tmp = _front;
+	DLLNode<T> tmp = _front;
 	while ( tmp != null ) {
-	    foo += tmp.getValue() + " ";
+	    foo += tmp.getCargo() + " ";
 	    tmp = tmp.getNext();
 	}
 	return foo;
@@ -111,29 +152,29 @@ public class Deque<T> implements Queue<T>
     //main method for testing
     public static void main( String[] args ) {
 
-	Queue<String> PirateQueue = new RQueue<String>();
+	Queue<String> PirateQueue = new Deque<String>();
 
 	System.out.println("\nnow enqueuing..."); 
-	PirateQueue.enqueue("Dread");
-	PirateQueue.enqueue("Pirate");
-	PirateQueue.enqueue("Robert");
-	PirateQueue.enqueue("Blackbeard");
-	PirateQueue.enqueue("Peter");
-	PirateQueue.enqueue("Stuyvesant");
+	PirateQueue.enqueueEnd("Dread");
+	PirateQueue.enqueueEnd("Pirate");
+	PirateQueue.enqueueEnd("Robert");
+	PirateQueue.enqueueEnd("Blackbeard");
+	PirateQueue.enqueueEnd("Peter");
+	PirateQueue.enqueueEnd("Stuyvesant");
 
 	System.out.println("\nnow testing toString()..."); 
 	System.out.println( PirateQueue ); //for testing toString()...
 
 	System.out.println("\nnow dequeuing..."); 
-	System.out.println( PirateQueue.dequeue() );
-	System.out.println( PirateQueue.dequeue() );
-	System.out.println( PirateQueue.dequeue() );
-	System.out.println( PirateQueue.dequeue() );
-	System.out.println( PirateQueue.dequeue() );
-	System.out.println( PirateQueue.dequeue() );
+	System.out.println( PirateQueue.dequeueFront() );
+	System.out.println( PirateQueue.dequeueFront() );
+	System.out.println( PirateQueue.dequeueFront() );
+	System.out.println( PirateQueue.dequeueFront() );
+	System.out.println( PirateQueue.dequeueFront() );
+	System.out.println( PirateQueue.dequeueFront() );
 
 	System.out.println("\nnow dequeuing fr empty queue..."); 
-	System.out.println( PirateQueue.dequeue() );
+	System.out.println( PirateQueue.dequeueFront() );
 
     }//end main
 

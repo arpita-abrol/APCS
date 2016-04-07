@@ -42,10 +42,10 @@ public class Deque<T> implements Queue<T>
 	//special case: when enqueuing to an empty list, 
 	//make _front && _end point to same node
 	if ( isEmpty() ) {
-	    _front = _end = new DLLNode<T>( enQVal, null );
+	    _front = _end = new DLLNode<T>( enQVal, null, null );
 	}
 	else {
-	    _end.setNext( new DLLNode<T>( enQVal, null ) );
+	    _end.setNext( new DLLNode<T>( enQVal, _end, null ) );
 	    _end = _end.getNext();
 	}
 	_size++;
